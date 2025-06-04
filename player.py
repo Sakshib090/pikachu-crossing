@@ -39,8 +39,4 @@ class Player(Turtle):
         self.goto(STARTING_POSITION)
 
     def is_at_finish_line(self):
-        if self.xcor() > FINISH_LINE_X:
-            return True
-        else:
-            return False
-        
+      return self.xcor() >= FINISH_LINE_X

@@ -35,5 +35,7 @@ class CarManager():
         if self.initial_level < 3:
             self.initial_level += 1
 
+    def cleanup_cars(self):
+       self.all_cars = [car for car in self.all_cars if car.xcor() > -320]
 
 

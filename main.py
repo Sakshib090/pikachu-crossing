@@ -8,10 +8,11 @@ screen = Screen()
 screen.setup(width=600, height=600)
 screen.tracer(0)
 
-screen.register_shape("pikachu.gif")
-screen.register_shape("car1.gif")
-screen.register_shape("car2.gif")
-screen.register_shape("car3.gif")
+for shape in ["pikachu.gif", "car1.gif", "car2.gif", "car3.gif"]:
+    try:
+        screen.register_shape(shape)
+    except:
+        print(f"Warning: {shape} not found!")
 
 player = Player()
 car_manager = CarManager()
@@ -31,19 +32,16 @@ while game_is_on:
     car_manager.create_car()
     car_manager.move_cars()
 
-    # Detect collision with the car
+    car_manager.cleanup_cars()
+
     for car in car_manager.all_cars:
-        if car.distance(player) < 20:
+        if car.distance(player) < 30:  
             game_is_on = False
             scoreboard.game_over()
 
-    # Detect successful crossing
     if player.is_at_finish_line():
-        print("level cleared")
-        self.goto(STARTING_POSITION)
+        player.go_to_start()
         car_manager.level_up()
-        scoreboard.increase_leve1()
-
-
+        scoreboard.increase_level()
 
 screen.exitonclick()
